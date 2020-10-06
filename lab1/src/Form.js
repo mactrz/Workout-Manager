@@ -4,7 +4,11 @@ import { Formik } from "formik";
 function Forma({changePrzeslany}) {
     return(
         <div>
-            <Formik initialValues={{text: '', date: ''}} onSubmit={(data) => changePrzeslany(data)} 
+            <Formik initialValues={{text: '', date: ''}} onSubmit={(values, {resetForm}) => {
+                changePrzeslany(values);
+                resetForm({values: ''});
+            }
+            }
             validate={(val) => {
                 const aktualnaData = new Date();
                 let errors = {};
@@ -23,6 +27,7 @@ function Forma({changePrzeslany}) {
                         <input
                             name="text"
                             type="text"
+                            value={values.text}
                             onChange={handleChange}
                         />
                         {errors.text && touched.text && <div>{errors.text}</div>}
@@ -32,6 +37,7 @@ function Forma({changePrzeslany}) {
                         <input
                             name="date"
                             type="date"
+                            value={values.date}
                             onChange={handleChange}
                         />
                         {errors.date && touched.date && <div>{errors.date}</div>}
