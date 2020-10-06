@@ -1,11 +1,11 @@
 import React from 'react';
 import { Formik } from "formik";
 
-function Forma({changePrzeslany}) {
+function Forma({zmiana}) {
     return(
         <div>
             <Formik initialValues={{text: '', date: ''}} onSubmit={(values, {resetForm}) => {
-                changePrzeslany(values);
+                zmiana(values);
                 resetForm({values: ''});
             }
             }
