@@ -7,7 +7,6 @@ function Forma({changeSzukany}) {
         <div>
             <Formik initialValues={{szukany: ""}} onSubmit={(data, {resetForm}) => {
                 changeSzukany(data);
-                console.log(data)
                 resetForm({data: ""});
             }}>
                 <Form>
