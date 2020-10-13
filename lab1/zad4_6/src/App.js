@@ -9,13 +9,38 @@ function App() {
   const [sort, changeSort] = useState(1);
   const [wyswietlane, changeWyswietlane] = useState([]);
   const [border, changeBorder] = useState(false);
+  const [waluty, changeWaluty] = useState([]);
+  const [wybwal, changeWybwal] = useState("");
+  const [koniec, changeKoniec] = useState([]);
 
   useEffect(() => {
     Axios.get('https://restcountries.eu/rest/v2').then(r => {
       changeCountries(r.data);
       changeWyswietlane(r.data);
+      let wal = []
+      r.data.map(x => {
+        return x.currencies.forEach(y => {
+          wal = [...wal, y.name]
+        });
+      })
+      wal = Array(...[...new Set(wal)]);
+      changeWaluty(wal);
     }).catch(er => console.log(er))
   },[])
+
+  useEffect(() => {
+    if(wybwal === "") {
+      changeKoniec(wyswietlane);
+    }
+    else {
+      const nowe = wyswietlane.filter(x => {
+          return x.currencies.find(y => {
+          return y.name === wybwal;
+        }) !== undefined;
+      })
+      changeKoniec(nowe);
+    }
+  },[wybwal, wyswietlane])
 
   useEffect(() => {
     if(szukany.szukany !== undefined && szukany.szukany !== "") {
@@ -66,11 +91,17 @@ function App() {
   return (
     <div className="App" style={{margin: "auto"}}>
       <Forma changeSzukany={changeSzukany}></Forma>
-      <button onClick={handleClick}>Sortuj</button>
+      <button onClick={handleClick}>Sortuj</button><br></br>
+      <select name="waluty" id="curr" onChange={e => changeWybwal(e.target.value)}>
+          <option value="">Wybierz walute</option>
+          {waluty.map(x => {
+            return (<option value={x} key={waluty.indexOf(x)}>{x}</option>);
+          })}
+      </select>
       {border && <div>PAŃSTWA SĄSIADUJĄCE</div>}
       <div id="kontener" style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr", margin: "auto", justifyItems: "center", width: 900, 
       rowGap: "5px", marginTop: "20px"}}>
-        {wyswietlane.map(x => {
+        {koniec.map(x => {
           return (<div key={countries.indexOf(x)} style= {{backgroundImage: "url(" + x.flag + ")",
         backgroundSize: "200px", width: "200px", height: "170px", backgroundRepeat: "no-repeat",
          position: "relative", border: "4px black solid"}}><div style={{position: "absolute", 
