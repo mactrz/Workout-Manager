@@ -4,7 +4,7 @@ import { Formik } from "formik";
 function Forma({zmiana}) {
     return(
         <div>
-            <Formik initialValues={{text: '', date: ''}} onSubmit={(values, {resetForm}) => {
+            <Formik initialValues={{text: '', date: '', done: false, expired: false}} onSubmit={(values, {resetForm}) => {
                 zmiana(values);
                 resetForm({values: ''});
             }
@@ -17,6 +17,9 @@ function Forma({zmiana}) {
                 }
                 else if(Date.parse(val.date) <= aktualnaData) {
                     errors.date = "Data musi byc pozniejsza niz dzien dzisiejszy"
+                }
+                else if(!val.date) {
+                    errors.date = "Data jest wymagana"
                 }
                 return errors
             }}>
@@ -36,7 +39,7 @@ function Forma({zmiana}) {
                             Data
                         <input
                             name="date"
-                            type="date"
+                            type="datetime-local"
                             value={values.date}
                             onChange={handleChange}
                         />
