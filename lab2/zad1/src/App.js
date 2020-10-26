@@ -13,13 +13,18 @@ function App() {
           return(
             <div style={{border: "2px solid black", width: '200px', margin: 'auto'}}>
               <div>{x.wartosc}</div>
+              
               <button onClick={() => changeLiczniki(l => l.reduce((prev, curr, inde) => {
                 if (inde === ind) return [...prev, {wartosc: curr.wartosc+Number(curr.oile), oile: curr.oile}];
                 else return [...prev, curr];
-              }, []))}>+</button><button onClick={() => changeLiczniki(l => l.reduce((prev, curr, inde) => {
+              }, []))}>+</button>
+              
+              <button onClick={() => changeLiczniki(l => l.reduce((prev, curr, inde) => {
                 if (inde === ind) return [...prev, {wartosc: curr.wartosc-curr.oile, oile: curr.oile}];
                 else return [...prev, curr];
               }, []))}>-</button><br/>
+
+
               <label>O ile?<input onChange={(e) => {
                 const zmiana = e.target.value;
                 changeLiczniki(l => {
