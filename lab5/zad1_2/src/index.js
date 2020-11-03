@@ -10,6 +10,17 @@ const store = createStore(red, applyMiddleware(logger));
 
 function red(state={counters: []}, action) {
   switch (action.type) {
+    case "COUNT":
+      return state;
+    case "STOP":
+      return state;
+    case "DEC1":
+      let newVal4 = [...state.counters];
+      newVal4[action.ind]['value'] -= 1;
+      return {
+        ...state,
+        counters: newVal4
+      }
     case "ADD":
       return {
         ...state,

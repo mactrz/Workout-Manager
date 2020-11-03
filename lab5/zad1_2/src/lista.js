@@ -1,6 +1,6 @@
 import Counter from './counter';
 
-function List({state, add, inc, dec, amount}) {
+function List({state, add, inc, dec, amount, start, stop}) {
     return(
         <div>
             <button onClick={add}>Dodaj licznik</button>
@@ -10,6 +10,8 @@ function List({state, add, inc, dec, amount}) {
                 key={inde}
                 value={x}
                 onIncrement={() => inc(inde)}
+                onStart={() => start(inde)}
+                onStop={() => stop(inde)}
                 onDecrement={() => dec(inde)}></Counter>)
             })}
         </div>
