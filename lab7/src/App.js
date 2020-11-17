@@ -4,6 +4,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Cities from './components/Cities';
 import NotFound from './components/NotFound';
+import CityDetails from './components/CityDetails';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
           <Route exact path="/cities" component={Cities} />
+          <Route exact path="/cities/:id" component={CityDetails} />
           <Route component={NotFound} />
         </Switch>
       </Router>    
