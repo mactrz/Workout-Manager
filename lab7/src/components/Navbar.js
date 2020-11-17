@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 const navStyle = {
     'background-color': '#333',
     'overflow': 'hidden'
@@ -14,9 +16,9 @@ const linkStyle = {
 
 const Navbar = () => (
   <div style={navStyle}>
-    <a href="" style={linkStyle}>Home</a>
-    <a href="" style={linkStyle}>Cities</a>
-    <a href="" style={linkStyle}>About</a>
+    <Link to='/' style={linkStyle}>Home</Link>
+    <Link to='/cities' style={linkStyle}>Cities</Link>
+    <Link to='/about' style={linkStyle}>About</Link>
   </div> 
 )
 

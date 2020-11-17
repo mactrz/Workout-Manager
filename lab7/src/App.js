@@ -5,11 +5,13 @@ import About from './components/About';
 import Cities from './components/Cities';
 import NotFound from './components/NotFound';
 import CityDetails from './components/CityDetails';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <div>
       <Router>
+        <Navbar/>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />

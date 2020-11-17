@@ -6,7 +6,7 @@ const CityDetails = () => {
         { name: 'Tokio', id: 1, population: '9,2 milion',  surface: '2 194 km'}, 
         { name: 'New York', id: 2 , population: '8,3 milion', surface: '1 213 km'} ]
         const {id} = useParams();
-        const city = cities.find(x => x.id == id)
+        const city = cities.find(x => x.id === id)
     
     return (
         <div>
