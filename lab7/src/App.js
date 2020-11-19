@@ -6,6 +6,9 @@ import Cities from './components/Cities';
 import NotFound from './components/NotFound';
 import CityDetails from './components/CityDetails';
 import Navbar from './components/Navbar';
+import CountryDetails from './components/CountryDetails';
+import Countries from './components/Countries';
+import CountryEdit from './components/CountryEdit';
 
 function App() {
   return (
@@ -17,11 +20,17 @@ function App() {
           <Route exact path="/about" component={About} />
           <Route exact path="/cities" component={Cities} />
           <Route exact path="/cities/:id" component={CityDetails} />
+          <Route exact path="/countries/:id" component={CountryDetails} />
+          <Route exact path="/countries" component={Countries} />
+          <Route exact path="/countries/:id/edit" component={CountryEdit} />
           <Route component={NotFound} />
         </Switch>
       </Router>    
     </div>
   );
 }
+
+
+
 
 export default App;
