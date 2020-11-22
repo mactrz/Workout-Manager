@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import {connect} from "react-redux";
 
 const CountryDetails = ({state}) => {
@@ -15,6 +15,7 @@ const CountryDetails = ({state}) => {
             
                 <p>Population: {country.population}</p>
                 <p>Surface: {country.surface}</p>
+                <Link to={'/countries/'+id+'/edit'}>Edit</Link>
             </div>}
             {country === undefined && <h1>No such country!</h1>}
         </div>
