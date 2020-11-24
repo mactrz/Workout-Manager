@@ -2,12 +2,12 @@ import React from 'react';
 import {Formik, Field, Form} from 'formik';
 
 
-function Forma2({dispatch}) {
+function Forma2({reset, search, all}) {
     return(
         <div>
             <Formik initialValues={{text: "", status: ""}} onSubmit={(data, {resetForm}) => {
-                dispatch({type: 'RESET'})
-                dispatch({type: 'SEARCH', payload: data});
+                reset(all);
+                search(data);
                 resetForm({data: ""});
             }}>
                 <Form>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Formik } from "formik";
 
-function Forma({dispatch}) {
+function Forma({add}) {
     return(
         <div>
             <Formik initialValues={{text: '', date: '', done: false, expired: false}} onSubmit={(values, {resetForm}) => {
-                dispatch({type: 'ADD', payload: values});
+                add(values);
                 resetForm({values: ''});
             }
             }
