@@ -1,9 +1,9 @@
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, FieldArray } from 'formik';
 
 
 const Forma = ({add}) => {
     return(
-        <Formik initialValues={{Title:"", Content:"", PublicationDate:"", Category:""}} onSubmit={(data, {resetForm}) => {
+        <Formik initialValues={{Title:"", Content:"", PublicationDate:"", Category:"", Comments:[]}} onSubmit={(data, {resetForm}) => {
             add(data);
             resetForm({data: ""})
         }} validate={(values) => {
@@ -42,6 +42,11 @@ const Forma = ({add}) => {
                         <option value='Economy'>Economy</option>
                         <option value='Politics'>Politics</option>
                     </Field></label><br/>
+                <label>Comments:
+                    <FieldArray name=''>
+
+                    </FieldArray>
+                    </label>
                 <Field type='submit' value='Post'></Field>
             </Form>)}
 
