@@ -1,7 +1,14 @@
 import './App.css';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-function App({workouts}) {
+
+
+
+
+function App({ workouts }) {
+
   return (
     <div className="App">
       {workouts.map((x, ind) => <div key={ind}>{x}</div>)}
