@@ -7,11 +7,17 @@ function App({blog, add}) {
     <div className="App">
       <Forma add={add}></Forma>
       {blog.map((x, ind) => {
-        return(<div key={ind} style={{border:'1px solid black', margin: 'auto'}}>
+        return(<div key={ind} style={{border:'1px solid black', margin: 'auto', width: '50%'}}>
           <div>Title: {x.Title}</div>
           <div>{x.Content}</div>
           <div>{x.PublicationDate}</div>
           <div>{x.Category}</div>
+          <div>
+            Comments:
+            {x.Comments.map((y, index) => {
+              return(<div key={index}>{y.text}</div>)
+            })}
+          </div>
         </div>)
       })}
     </div>
