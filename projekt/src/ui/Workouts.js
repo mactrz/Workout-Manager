@@ -1,22 +1,42 @@
-import operations from '../state/ducks/workouts/operations';
 import { connect } from 'react-redux';
-import { useEffect } from 'react';
+import { Container, Table } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Workouts = ({ fetchWorkouts, workouts, check }) => {
-
-    useEffect(() => {
-        fetchWorkouts()
-        check()
-    }, [fetchWorkouts, check])
+const Workouts = ({ workouts }) => {
 
     return(
-        <div>
-            {workouts.map(workout => {
-                return(<div>{workout.title}</div>)
-            })}
-        </div>
+        <Container>
+            <Table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Remove</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {workouts.map(x => {
+                        return(
+                            <tr key={x._id}>
+                                <th>{x.title}</th>
+                                <th>
+                                    <i className="fas fa-trash"></i>
+                                </th>
+                                <th>
+                                    <i className="fas fa-edit"></i>
+                                </th>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </Table>
+        </Container>
     )
 }
+
+// {workouts.map(workout => {
+//     return(<div key={workout._id}>{workout.title}</div>)
+// })}
 
 const mapStateToProps = (state) => {
     return {
@@ -24,15 +44,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchWorkouts: () => {
-            dispatch(operations.getWorkouts())
-        },
-        check: () => {
-            dispatch({type: '@@workout/WORKOUT_REQUEST', payload: 'kek'})
-        }
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Workouts)
+export default connect(mapStateToProps)(Workouts)

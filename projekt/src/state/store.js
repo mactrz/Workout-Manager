@@ -3,7 +3,7 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 
 import logger from 'redux-logger';
 
-import { createMiddleware, apiMiddleware } from 'redux-api-middleware';
+import { apiMiddleware } from 'redux-api-middleware';
 import workoutReducers from "./ducks/workouts/reducers";
 
 const rootReducer = combineReducers(workoutReducers);
