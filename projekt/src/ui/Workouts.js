@@ -2,11 +2,12 @@ import operations from '../state/ducks/workouts/operations';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 
-const Workouts = ({ fetchWorkouts, workouts }) => {
+const Workouts = ({ fetchWorkouts, workouts, check }) => {
 
     useEffect(() => {
         fetchWorkouts()
-    }, [fetchWorkouts])
+        check()
+    }, [fetchWorkouts, check])
 
     return(
         <div>
@@ -26,8 +27,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchWorkouts: () => {
-            console.log('work')
             dispatch(operations.getWorkouts())
+        },
+        check: () => {
+            dispatch({type: '@@workout/WORKOUT_REQUEST', payload: 'kek'})
         }
     }
 }
