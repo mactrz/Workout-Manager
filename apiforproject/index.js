@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const exercise = require('./routes/exercise');
 const workout = require('./routes/workout');
+const cors = require('cors')
 
 app.use(express.json());
+app.use(cors())
 
 app.use('/workouts', workout);
 workout.use('/:idWorkout/exercises', exercise);
