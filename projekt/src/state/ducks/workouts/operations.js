@@ -1,5 +1,6 @@
 import {createAction} from 'redux-api-middleware';
-import {WORKOUT_FAILURE, WORKOUT_REQUEST, WORKOUT_SUCCESS} from "./types";
+import {WORKOUT_FAILURE, WORKOUT_REQUEST, WORKOUT_SUCCESS,
+ } from "./types";
 
 const getWorkouts = () => (dispatch) => dispatch(createAction({
   endpoint: 'http://localhost:5000/workouts',

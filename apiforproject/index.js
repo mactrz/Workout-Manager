@@ -2,13 +2,16 @@ const express = require('express');
 const app = express();
 const exercise = require('./routes/exercise');
 const workout = require('./routes/workout');
-const cors = require('cors')
+const exercises = require('./routes/exercises');
+const cors = require('cors');
 
 app.use(express.json());
 app.use(cors())
 
 app.use('/workouts', workout);
+app.use('/exercises', exercises)
 workout.use('/:idWorkout/exercises', exercise);
+
 
 require('dotenv').config();
 const dbConnData = {

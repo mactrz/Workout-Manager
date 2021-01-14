@@ -34,6 +34,7 @@ router.get('/', async (req, res) => {
     }
   });
 
+
 router.post('/', async (req, res) => {
     const exercise = new Exercise({
       ...req.body,

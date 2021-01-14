@@ -1,20 +1,21 @@
 import types from './types'
 
-const workouts = (state = [], action) => {
+const exercises = (state = [], action) => {
     switch(action.type) {
-        case types.WORKOUT_SUCCESS:
+        case types.EXERCISE_SUCCESS:
+            console.log(action.payload)
             if (state.length === 0) return [
             ...state,
             ...action.payload
             ]
             else return state;
-        case types.REMOVE_WORKOUT:
+        case types.REMOVE_EXERCISE:
             return state.filter(x => x._id !== action.payload)
         default:
             return state;
     }
 }
 
-const workoutReducers = { workouts };
+const exerciseReducers = { exercises };
 
-export default workoutReducers;
+export default exerciseReducers;

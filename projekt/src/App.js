@@ -5,13 +5,16 @@ import { Route, BrowserRouter  as Router, Switch } from 'react-router-dom';
 import Navbar from './ui/Navbar';
 import { useEffect } from 'react';
 import operations from './state/ducks/workouts/operations';
+import operationsExercises from './state/ducks/exercises/operations';
+import WorkoutDetails from './ui/WorkoutDetails';
 
 
-function App({ fetchWorkouts }) {
+function App({ fetchWorkouts, fetchExercises }) {
 
   useEffect(() => {
     fetchWorkouts()
-}, [fetchWorkouts])
+    fetchExercises()
+}, [fetchWorkouts, fetchExercises])
 
   return (
     <div>
@@ -19,6 +22,7 @@ function App({ fetchWorkouts }) {
         <Navbar/>
         <Switch>
           <Route exact path="/" component={Workouts}/>
+          <Route exact path="/workouts/:id" component={WorkoutDetails}/>
         </Switch>
       </Router>
     </div>
@@ -35,6 +39,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
       fetchWorkouts: () => {
           dispatch(operations.getWorkouts())
+      },
+      fetchExercises: () => {
+        dispatch(operationsExercises.getExercises())
       }
   }
 }
