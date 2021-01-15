@@ -6,7 +6,9 @@ import { Button } from 'react-bootstrap';
 const AddWorkout = ( {addWorkout} ) => {
     return(
         <Formik initialValues={{title:'', days:[], description:'', exercises:[]}} onSubmit={(values, {resetForm}) => {
-            addWorkout(values);
+            values['creationDate'] = new Date()
+            const valsString = JSON.stringify(values);
+            addWorkout(valsString);
             resetForm({values: ''});
         }}>
             {({ values }) => (<Form>
@@ -19,41 +21,45 @@ const AddWorkout = ( {addWorkout} ) => {
                         {({ insert, remove, push }) => (
                             <div>
                                 {values.exercises.length > 0 && values.exercises.map((x, ind) =>  (
-                                    <div className="row" key={ind}>
-                                        <div className='col'>
-                                            <Field name={`exercises.${ind}.title`} type='text'/>
+                                    <div className="col" key={ind}>
+                                        <div className='row'>
+                                            <h6>Title:<br/>
+                                            <Field name={`exercises.${ind}.title`} type='text' placeholder='My Exercise'/></h6>
                                         </div>
-                                        <div className='col'>
-                                            <Field name={`exercises.${ind}.description`} type='text'/>
+                                        <div className='row'>
+                                            <h6>Description:<br/>
+                                            <Field name={`exercises.${ind}.description`} as='textarea' placeholder='This exercise...' cols='30'/></h6>
                                         </div>
-                                        <div className='col'>
+                                        <div className='row'>
+                                            <h6>Body Part:<br/>
                                             <Field name={`exercises.${ind}.bodypart`} as='select'>
                                                 <option value=''>Choose a bodypart</option>
                                                 <option value='legs'>Legs</option>
                                                 <option value='arms'>Arms</option>
                                                 <option value='chest'>Chest</option>
                                                 <option value='torso'>Torso</option>
-                                            </Field>
+                                            </Field></h6>
                                         </div>
-                                        <div className='col'>
-                                            <Field name={`exercises.${ind}.difficulty`} type='text'/>
+                                        <div className='row'>
+                                            <h6>Difficulty:<br/>0
+                                            <Field name={`exercises.${ind}.difficulty`} type='range' min='0' max='10'/>10</h6>
                                         </div>
-                                        <div className='col'>
-                                            <button type="button" className="secondary"
+                                        <div className='row'>
+                                            <Button className="secondary"
                                             onClick={() => remove(ind)}>
                                                 Remove
-                                            </button>
+                                            </Button>
                                         </div>
                                     </div>
                                 ))}
                                 <Button className="secondary"
-                                onClick={() => push({text: ''})}>
+                                onClick={() => push({title: '', description: '', bodypart: '', difficulty: ''})}>
                                     Add Exercise
                                 </Button>
                             </div>
                         )}
                     </FieldArray>
-                <Field type='submit' value='Add'></Field>
+                <Field className="btn btn-primary" type='submit' value='Add'></Field>
             </Form>)}
         </Formik>
     )

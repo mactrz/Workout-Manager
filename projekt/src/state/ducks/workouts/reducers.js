@@ -10,6 +10,8 @@ const workouts = (state = [], action) => {
             else return state;
         case types.REMOVE_WORKOUT:
             return state.filter(x => x._id !== action.payload)
+        case types.WORKOUTPOST_SUCCESS:
+            return [...state, action.payload.workout];
         default:
             return state;
     }

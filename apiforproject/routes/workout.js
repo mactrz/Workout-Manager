@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 const { Types } = require('mongoose');
+const axios = require('axios').default;
 
 const Exercise = require('../models/Exercise');
 const Workout = require('../models/Workout');
@@ -29,10 +30,8 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const now = new Date()
     const workout = new Workout({
       ...req.body,
-      creationDate: now
     })
 
     try {
@@ -43,6 +42,43 @@ router.post('/', async (req, res) => {
       console.log(err);
       return res.send({err});
     }
+});
+
+router.post('/withExercises', async (req, res) => {
+  let ret = {exercises: []}
+  const workout = new Workout({
+    title: req.body.title,
+    description: req.body.description,
+    days: req.body.days,
+    creationDate: req.body.creationDate
+  })
+  const exercises = req.body.exercises;
+  let promises = [];
+
+  try {
+    const createdWorkout = await workout.save()
+    ret = {...ret, workout: createdWorkout};
+    const id = createdWorkout._id;
+    exercises.forEach(async exercise => {
+      const newexercise = new Exercise({
+        ...exercise,
+        workout: id
+      })
+      promises.push(newexercise.save().then(data => {
+        ret.exercises.push(data);
+        ret.workout.exercises.push(data._id)
+        Workout.findByIdAndUpdate(id,
+          { '$push': { 'exercises': data._id } },
+            { 'new': true });
+      }))
+    })
+    await Promise.all(promises)
+    return res.send(ret);
+  }
+  catch(err) {
+    console.log(err);
+    return res.send({err});
+  }
 });
 
 router.delete('/:id', async (req, res) => {

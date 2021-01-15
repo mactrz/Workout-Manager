@@ -6,8 +6,9 @@ import actions from '../state/ducks/workouts/actions';
 import { useState } from 'react';
 import Search from './SearchingForm';
 import AddWorkout from './AddWorkout';
+import operations from '../state/ducks/workouts/operations';
 
-const Workouts = ({ workouts, removeWorkout, exercises }) => {
+const Workouts = ({ workouts, removeWorkout, exercises, addWorkout, removeWorkoutApi }) => {
 
     const [searched, changeSearched] = useState('');
     const [selected, changeSelected] = useState('');
@@ -110,10 +111,9 @@ const Workouts = ({ workouts, removeWorkout, exercises }) => {
                     {workoutsSorted.map(x => {
                         return(
                             <tr key={x._id}>
-                                {console.log(typeof(x.creationDate))}
                                 <th onClick={() => handleClickDetails(x._id)}>{x.title}</th>
                                 <th onClick={() => handleClickDetails(x._id)}>{new Date(x.creationDate).toDateString()}</th>
-                                <th onClick={() => removeWorkout(x._id)} style={{textAlign:'center', verticalAlign:'middle'}}>
+                                <th onClick={() => {removeWorkout(x._id); removeWorkoutApi(x._id)}} style={{textAlign:'center', verticalAlign:'middle'}}>
                                     <i className="fas fa-trash"></i>
                                 </th>
                                 <th style={{textAlign:'center', verticalAlign:'middle'}}>
@@ -131,7 +131,7 @@ const Workouts = ({ workouts, removeWorkout, exercises }) => {
                 Add new workout
              </Button></Row>
             <Row>
-            {open && <AddWorkout/>}
+            {open && <AddWorkout addWorkout={addWorkout}/>}
             </Row>
         </Container>
     )
@@ -148,8 +148,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         removeWorkout: (id) => {
-            console.log(actions.removeWorkout(id))
             dispatch(actions.removeWorkout(id))
+        },
+        addWorkout: (workout) => {
+            dispatch(operations.postWorkout(workout))
+        },
+        removeWorkoutApi: (id) => {
+            dispatch(operations.removeWorkout(id))
         }
     }
 }
