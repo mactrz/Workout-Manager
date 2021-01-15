@@ -1,15 +1,19 @@
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Container, Table, Col, Row } from 'react-bootstrap';
+import { Container, Table, Col, Row, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import actions from '../state/ducks/workouts/actions';
 import { useState } from 'react';
 import Search from './SearchingForm';
+import AddWorkout from './AddWorkout';
 
 const Workouts = ({ workouts, removeWorkout, exercises }) => {
 
     const [searched, changeSearched] = useState('');
     const [selected, changeSelected] = useState('');
+    const [sortTitle, changeSortTitle] = useState(0);
+    const [sortDate, changeSortDate] = useState(0);
+    const [open, setOpen] = useState(false);
     const history = useHistory();
 
     const workoutsSearched = workouts.filter(workout => {
@@ -29,9 +33,49 @@ const Workouts = ({ workouts, removeWorkout, exercises }) => {
         else return true;
     })
 
+    const workoutsSorted = finalWorkouts.sort((a, b) => {
+        if (sortTitle === 1) {
+            if (a.title < b.title) return -1
+            if (a.title > b.title) return 1
+            return 0
+        }
+        if (sortTitle === 2) {
+            if (a.title > b.title) return -1
+            if (a.title < b.title) return 1
+            return 0
+        }
+        if (sortDate === 1) {
+            if (new Date(a.creationDate) < new Date(b.creationDate)) return -1
+            if (new Date(a.creationDate) > new Date(b.creationDate)) return 1
+            return 0
+        }
+        if (sortDate === 2) {
+            if (new Date(a.creationDate) > new Date(b.creationDate)) return -1
+            if (new Date(a.creationDate) < new Date(b.creationDate)) return 1
+            return 0
+        }
+        return 0
+    })
+
 
     const handleClickDetails = (id) => {
         history.push(`/workouts/${id}`);
+    }
+
+    const handleSortTitle = () => {
+        changeSortDate(0);
+        changeSortTitle(prev => {
+            if(sortTitle === 2) return 0;
+            else return prev + 1;
+        })
+    }
+
+    const handleSortDate = () => {
+        changeSortTitle(0);
+        changeSortDate(prev => {
+            if(sortDate === 2) return 0;
+            else return prev + 1;
+        })
     }
 
 
@@ -45,19 +89,30 @@ const Workouts = ({ workouts, removeWorkout, exercises }) => {
                     <Search changeSearched={changeSearched} changeSelected={changeSelected}/>
                 </Col>
             </Row>
+            <Row>
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th style={{width:"80%", textAlign:'center'}}>Title</th>
+                        <th onClick={handleSortTitle} style={{width:"40%", textAlign:'center'}}>Title
+                        {sortTitle === 0 && <i style={{marginLeft:'10px'}} className="fas fa-sort"></i>}
+                        {sortTitle === 1 && <i style={{marginLeft:'10px'}} className="fas fa-sort-down"></i>}
+                        {sortTitle === 2 && <i style={{marginLeft:'10px'}} className="fas fa-sort-up"></i>}
+                        </th>
+                        <th onClick={handleSortDate} style={{width:"40%", textAlign:'center'}}>Creation Date
+                        {sortDate === 0 && <i style={{marginLeft:'10px'}} className="fas fa-sort"></i>}
+                        {sortDate === 1 && <i style={{marginLeft:'10px'}} className="fas fa-sort-down"></i>}
+                        {sortDate === 2 && <i style={{marginLeft:'10px'}} className="fas fa-sort-up"></i>}</th>
                         <th style={{width:"10%", textAlign:'center'}}>Remove</th>
                         <th style={{width:"10%",textAlign:'center'}}>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {finalWorkouts.map(x => {
+                    {workoutsSorted.map(x => {
                         return(
                             <tr key={x._id}>
+                                {console.log(typeof(x.creationDate))}
                                 <th onClick={() => handleClickDetails(x._id)}>{x.title}</th>
+                                <th onClick={() => handleClickDetails(x._id)}>{new Date(x.creationDate).toDateString()}</th>
                                 <th onClick={() => removeWorkout(x._id)} style={{textAlign:'center', verticalAlign:'middle'}}>
                                     <i className="fas fa-trash"></i>
                                 </th>
@@ -69,6 +124,15 @@ const Workouts = ({ workouts, removeWorkout, exercises }) => {
                     })}
                 </tbody>
             </Table>
+            </Row>
+            <Row><Button
+                onClick={() => setOpen(!open)}
+            >
+                Add new workout
+             </Button></Row>
+            <Row>
+            {open && <AddWorkout/>}
+            </Row>
         </Container>
     )
 }
