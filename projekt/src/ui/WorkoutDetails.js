@@ -3,16 +3,18 @@ import { connect } from 'react-redux';
 import { Container, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import actions from '../state/ducks/exercises/actions';
+import operationsExercises from '../state/ducks/exercises/operations';
 
 
-const WorkoutDetails = ( { workouts, exercises, removeExercise } ) => {
+const WorkoutDetails = ( { workouts, exercises, removeExercise, removeExerciseApi } ) => {
 
     const {id} = useParams()
-    const workout = workouts.find(workout => workout._id === id)
-    const correctExercises = exercises.filter(exercise => exercise.workout === id)
+    const workout = (workouts ? workouts.find(workout => workout._id === id): false)
+    const correctExercises = (workouts ? exercises.filter(exercise => exercise.workout === id): [])
 
     return(
-        <Container style={{marginTop: '40px'}}>
+        <div>
+        {workout && <Container style={{marginTop: '40px'}}>
             <h1>{workout.title}</h1>
             <h5>Description: {workout.description}</h5>
             <Table striped bordered hover>
@@ -33,7 +35,7 @@ const WorkoutDetails = ( { workouts, exercises, removeExercise } ) => {
                                     Improves: {x.bodypart}<br/>
                                     Difficulty: {x.difficulty}/10
                                 </th>
-                                <th onClick={() => removeExercise(x._id)} style={{textAlign:'center', verticalAlign:'middle'}}>
+                                <th onClick={() => {removeExercise(x._id); removeExerciseApi(workout._id, x._id)}} style={{textAlign:'center', verticalAlign:'middle'}}>
                                     <i className="fas fa-trash"></i>
                                 </th>
                                 <th style={{textAlign:'center', verticalAlign:'middle'}}>
@@ -44,7 +46,8 @@ const WorkoutDetails = ( { workouts, exercises, removeExercise } ) => {
                     })}
                 </tbody>
             </Table>
-        </Container>
+        </Container>}
+        </div>
     )
 }
 
@@ -59,6 +62,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         removeExercise: (id) => {
             dispatch(actions.removeExercise(id))
+        },
+        removeExerciseApi: (workid, exid) => {
+            dispatch(operationsExercises.removeExercise(workid, exid))
         }
     }
 }

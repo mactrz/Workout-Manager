@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import operations from './state/ducks/workouts/operations';
 import operationsExercises from './state/ducks/exercises/operations';
 import WorkoutDetails from './ui/WorkoutDetails';
+import EditWorkout from './ui/EditWorkout';
 
 
 function App({ fetchWorkouts, fetchExercises }) {
@@ -23,6 +24,7 @@ function App({ fetchWorkouts, fetchExercises }) {
         <Switch>
           <Route exact path="/" component={Workouts}/>
           <Route exact path="/workouts/:id" component={WorkoutDetails}/>
+          <Route exact path='/edit/workouts/:id' component={EditWorkout}/>
         </Switch>
       </Router>
     </div>

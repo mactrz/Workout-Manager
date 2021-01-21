@@ -63,6 +63,10 @@ const Workouts = ({ workouts, removeWorkout, exercises, addWorkout, removeWorkou
         history.push(`/workouts/${id}`);
     }
 
+    const handleClickEditWorkout = (id) => {
+        history.push(`/edit/workouts/${id}`);
+    }
+
     const handleSortTitle = () => {
         changeSortDate(0);
         changeSortTitle(prev => {
@@ -116,7 +120,7 @@ const Workouts = ({ workouts, removeWorkout, exercises, addWorkout, removeWorkou
                                 <th onClick={() => {removeWorkout(x._id); removeWorkoutApi(x._id)}} style={{textAlign:'center', verticalAlign:'middle'}}>
                                     <i className="fas fa-trash"></i>
                                 </th>
-                                <th style={{textAlign:'center', verticalAlign:'middle'}}>
+                                <th onClick={() => handleClickEditWorkout(x._id)} style={{textAlign:'center', verticalAlign:'middle'}}>
                                     <i className="fas fa-edit"></i>
                                 </th>
                             </tr>

@@ -95,5 +95,17 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  const id = req.params.id;
+  const {exercises, ...data} = req.body;
+  console.log(exercises)
+  console.log(data)
+  try {
+  } catch(err) {
+    console.log(err)
+    return res.send({err})
+  }
+})
+
 
 module.exports = router;
