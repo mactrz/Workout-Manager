@@ -131,7 +131,7 @@ const Workouts = ({ workouts, removeWorkout, exercises, addWorkout, removeWorkou
                 Add new workout
              </Button></Row>
             <Row>
-            {open && <AddWorkout addWorkout={addWorkout}/>}
+            {open && <div style={{marginLeft: 'auto', marginRight: 'auto'}}><AddWorkout addWorkout={addWorkout}/></div>}
             </Row>
         </Container>
     )
