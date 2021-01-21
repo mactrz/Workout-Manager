@@ -19,7 +19,7 @@ const AddWorkout = ( {addWorkout} ) => {
                 .string()
                 .required('Description is required')
                 .matches(/exercise/, 'Description must contain the word exercise'),
-                bodypart:yup.string(),
+                bodypart:yup.string().required('Must chose one'),
                 difficulty: yup.number()
             })
         ),
@@ -47,9 +47,9 @@ const AddWorkout = ( {addWorkout} ) => {
                 </ErrorMessage>
                 <FieldArray name='exercises'>
                         {({ insert, remove, push }) => (
-                            <div>
+                            <div style={{borderTop:'2px solid black', marginTop:'3px', paddingTop:'3px'}}>
                                 {values.exercises.length > 0 && values.exercises.map((x, ind) =>  (
-                                    <div className="col" key={ind}>
+                                    <div className="col" key={ind} style={{borderBottom:'2px solid black', marginBottom:'3px', paddingBottom:'3px'}}>
                                         <div className='row'>
                                             <h6>Title:<br/>
                                             <Field name={`exercises.${ind}.title`} type='text' placeholder='My Exercise'/>
@@ -102,7 +102,7 @@ const AddWorkout = ( {addWorkout} ) => {
                                     </div>
                                 ))}
                                 <Button className="secondary"
-                                onClick={() => push({title: '', description: '', bodypart: '', difficulty: ''})}>
+                                onClick={() => push({title: '', description: '', bodypart: '', difficulty: 1})}>
                                     Add Exercise
                                 </Button>
                             </div>

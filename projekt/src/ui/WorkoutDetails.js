@@ -4,13 +4,19 @@ import { Container, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import actions from '../state/ducks/exercises/actions';
 import operationsExercises from '../state/ducks/exercises/operations';
+import { useHistory } from 'react-router-dom';
 
 
 const WorkoutDetails = ( { workouts, exercises, removeExercise, removeExerciseApi } ) => {
 
+    const history = useHistory();
     const {id} = useParams()
     const workout = (workouts ? workouts.find(workout => workout._id === id): false)
     const correctExercises = (workouts ? exercises.filter(exercise => exercise.workout === id): [])
+
+    const handleClickEditExercise = (id) => {
+        history.push(`/edit/exercises/${id}`);
+    }
 
     return(
         <div>
@@ -38,7 +44,7 @@ const WorkoutDetails = ( { workouts, exercises, removeExercise, removeExerciseAp
                                 <th onClick={() => {removeExercise(x._id); removeExerciseApi(workout._id, x._id)}} style={{textAlign:'center', verticalAlign:'middle'}}>
                                     <i className="fas fa-trash"></i>
                                 </th>
-                                <th style={{textAlign:'center', verticalAlign:'middle'}}>
+                                <th onClick={() => handleClickEditExercise(x._id)} style={{textAlign:'center', verticalAlign:'middle'}}>
                                     <i className="fas fa-edit"></i>
                                 </th>
                             </tr>

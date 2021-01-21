@@ -98,9 +98,25 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   const id = req.params.id;
   const {exercises, ...data} = req.body;
-  console.log(exercises)
-  console.log(data)
+  let promises = [];
+
   try {
+    await Workout.findByIdAndUpdate(id, data);
+    exercises.forEach(async exercise => {
+      const newEx = new Exercise({
+        ...exercise,
+        workout: id
+      })
+
+      promises.push(newEx.save().then(data => {
+        Workout.findByIdAndUpdate(id,
+          { '$push': { 'exercises': data._id } },
+            { 'new': true });
+      }))
+    } )
+    await Promise.all(promises);
+    return res.send({success: 'success'});
+    
   } catch(err) {
     console.log(err)
     return res.send({err})

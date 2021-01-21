@@ -9,7 +9,7 @@ import actions from '../state/ducks/exercises/actions';
 import operations from '../state/ducks/workouts/operations';
 
 
-const EditWorkout = ( { editWorkout, workouts, exercises, removeExercise, removeExerciseApi } ) => {
+const EditWorkout = ( { editWorkoutApi, workouts, exercises, removeExercise, removeExerciseApi } ) => {
     
     const {id} = useParams()
     const workout = (workouts ? workouts.find(workout => workout._id === id): false)
@@ -28,7 +28,7 @@ const EditWorkout = ( { editWorkout, workouts, exercises, removeExercise, remove
                 .string()
                 .required('Description is required')
                 .matches(/exercise/, 'Description must contain the word exercise'),
-                bodypart:yup.string(),
+                bodypart:yup.string().required('Must chose one'),
                 difficulty: yup.number()
             })
         ),
@@ -41,7 +41,7 @@ const EditWorkout = ( { editWorkout, workouts, exercises, removeExercise, remove
             if(values.title.length === 0) valSend['title'] = workout.title;
             if(values.description.length === 0) valSend['description'] = workout.description;
             const valsString = JSON.stringify(valSend);
-            editWorkout(workout._id, valsString);
+            editWorkoutApi(workout._id, valsString);
             resetForm({values: ''});
         }} validationSchema={validationSchema}>
             {({ values, resetForm }) => (
@@ -61,11 +61,13 @@ const EditWorkout = ( { editWorkout, workouts, exercises, removeExercise, remove
                 <ErrorMessage name="description" className="error">
                     { msg => <div style={{ color: 'red' }}>{msg}</div> }
                 </ErrorMessage>
+                <div>
+                <h4>Exercises:</h4>
                 <FieldArray name='exercises'>
                         {({ remove, push }) => (
-                            <div>
+                            <div style={{borderTop:'2px solid black', marginTop:'3px', paddingTop:'3px'}}>
                                 {values.exercises.length > 0 && values.exercises.map((x, ind) =>  (
-                                    <div className="col" key={ind}>
+                                    <div className="col" key={ind} style={{borderBottom:'2px solid black', marginBottom:'3px', paddingBottom:'3px'}}>
                                         <div className='row'>
                                             <h6>Title:<br/>
                                             <Field name={`exercises.${ind}.title`} type='text' placeholder='My Exercise'/>
@@ -124,7 +126,8 @@ const EditWorkout = ( { editWorkout, workouts, exercises, removeExercise, remove
                             </div>
                         )}
                     </FieldArray>
-                <Field className="btn btn-primary" type='submit' value='Add'></Field>
+                    </div>
+                <Field className="btn btn-primary" type='submit' value='Edit'></Field>
                 <Button type='reset' onClick={resetForm}>Reset Form</Button>
             </Form>
             </Col>
@@ -181,7 +184,7 @@ const mapDispatchToProps = (dispatch) => {
         removeExerciseApi: (workid, exid) => {
             dispatch(operationsExercises.removeExercise(workid, exid))
         },
-        editWorkout: (id, data) => {
+        editWorkoutApi: (id, data) => {
             dispatch(operations.editWorkout(id, data))
         }
     }

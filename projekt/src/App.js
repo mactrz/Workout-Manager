@@ -8,6 +8,7 @@ import operations from './state/ducks/workouts/operations';
 import operationsExercises from './state/ducks/exercises/operations';
 import WorkoutDetails from './ui/WorkoutDetails';
 import EditWorkout from './ui/EditWorkout';
+import EditExercise from './ui/EditExercise';
 
 
 function App({ fetchWorkouts, fetchExercises }) {
@@ -25,6 +26,7 @@ function App({ fetchWorkouts, fetchExercises }) {
           <Route exact path="/" component={Workouts}/>
           <Route exact path="/workouts/:id" component={WorkoutDetails}/>
           <Route exact path='/edit/workouts/:id' component={EditWorkout}/>
+          <Route exact path='/edit/exercises/:id' component={EditExercise}/>
         </Switch>
       </Router>
     </div>
