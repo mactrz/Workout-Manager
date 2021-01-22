@@ -1,6 +1,7 @@
 import {createAction} from 'redux-api-middleware';
 import {EXERCISE_FAILURE, EXERCISE_REQUEST, EXERCISE_SUCCESS,
-  EXERCISEDELETE_FAILURE, EXERCISEDELETE_REQUEST, EXERCISEDELETE_SUCCESS} from "./types";
+  EXERCISEDELETE_FAILURE, EXERCISEDELETE_REQUEST, EXERCISEDELETE_SUCCESS,
+  EXERCISEEDIT_FAILURE, EXERCISEEDIT_REQUEST, EXERCISEEDIT_SUCCESS} from "./types";
 
  const getExercises = () => (dispatch) => dispatch(createAction({
   endpoint: 'http://localhost:5000/exercises/all',
@@ -29,9 +30,24 @@ const removeExercise = (idworkout, idex) => (dispatch) => dispatch(createAction(
 }));
 
 
+const editExercise = (idworkout, idExercise, data) => (dispatch) => dispatch(createAction({
+  endpoint: `http://localhost:5000/workouts/${idworkout}/exercises/${idExercise}`,
+  method: 'PUT',
+  body: data,
+  headers: {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  },
+  types: [
+    EXERCISEEDIT_REQUEST,
+    EXERCISEEDIT_SUCCESS,
+    EXERCISEEDIT_FAILURE]
+}));
+
 const operationsExercises = {
   getExercises,
-  removeExercise
+  removeExercise,
+  editExercise
 }
 
 export default operationsExercises

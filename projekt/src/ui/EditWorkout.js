@@ -2,18 +2,24 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Row, Col, Table } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import operationsExercises from '../state/ducks/exercises/operations';
 import actions from '../state/ducks/exercises/actions';
 import operations from '../state/ducks/workouts/operations';
+import { editWorkout } from '../state/ducks/workouts/actions';
 
 
-const EditWorkout = ( { editWorkoutApi, workouts, exercises, removeExercise, removeExerciseApi } ) => {
+const EditWorkout = ( { editWorkoutApi, workouts, exercises, removeExercise, removeExerciseApi, editWorkout } ) => {
     
+    const history = useHistory();
     const {id} = useParams()
     const workout = (workouts ? workouts.find(workout => workout._id === id): false)
     const correctExercises = (workouts ? exercises.filter(exercise => exercise.workout === id): [])
+
+    const handleClickEditExercise = (id) => {
+        history.push(`/edit/exercises/${id}`);
+    }
 
     const validationSchema = yup.object().shape({
         title: yup.string()
@@ -40,6 +46,7 @@ const EditWorkout = ( { editWorkoutApi, workouts, exercises, removeExercise, rem
             let valSend = {...values}
             if(values.title.length === 0) valSend['title'] = workout.title;
             if(values.description.length === 0) valSend['description'] = workout.description;
+            editWorkout(workout._id ,valSend);
             const valsString = JSON.stringify(valSend);
             editWorkoutApi(workout._id, valsString);
             resetForm({values: ''});
@@ -153,7 +160,7 @@ const EditWorkout = ( { editWorkoutApi, workouts, exercises, removeExercise, rem
                                 <th onClick={() => {removeExercise(x._id); removeExerciseApi(workout._id, x._id)}} style={{textAlign:'center', verticalAlign:'middle'}}>
                                     <i className="fas fa-trash"></i>
                                 </th>
-                                <th style={{textAlign:'center', verticalAlign:'middle'}}>
+                                <th onClick={() => handleClickEditExercise(x._id)} style={{textAlign:'center', verticalAlign:'middle'}}>
                                     <i className="fas fa-edit"></i>
                                 </th>
                             </tr>
@@ -186,6 +193,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         editWorkoutApi: (id, data) => {
             dispatch(operations.editWorkout(id, data))
+        },
+        editWorkout: (ind, data) => {
+            dispatch(editWorkout(ind, data))
         }
     }
 }

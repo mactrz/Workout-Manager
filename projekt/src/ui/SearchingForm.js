@@ -10,7 +10,7 @@ const Search = ({ changeSearched, changeSelected }) => {
             <Form>
                 <Field type='text' placeholder='Title...' name='searched'></Field>
                 <Field as='select' name='selected'>
-                    <option value=''>Choose a body part trained in the workout</option>
+                    <option value=''>Choose a body part</option>
                     <option value='legs'>Legs</option>
                     <option value='chest'>Chest</option>
                     <option value='arms'>Arms</option>

@@ -15,6 +15,7 @@ export const WORKOUTEDIT_SUCCESS = '@@workout/WORKOUTEDIT_SUCCESS'
 export const WORKOUTEDIT_FAILURE = '@@workout/WORKOUTEDIT_FAILURE'
 
 const REMOVE_WORKOUT = 'DELETE_WORKOUT'
+const EDIT_WORKOUT = 'EDIT_WORKOUT'
 
 const types = {
     WORKOUT_REQUEST,
@@ -29,7 +30,8 @@ const types = {
     WORKOUTEDIT_REQUEST,
     WORKOUTEDIT_SUCCESS,
     WORKOUTEDIT_FAILURE,
-    REMOVE_WORKOUT
+    REMOVE_WORKOUT,
+    EDIT_WORKOUT
 };
 
 export default types;

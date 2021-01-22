@@ -3,6 +3,7 @@ const app = express();
 const exercise = require('./routes/exercise');
 const workout = require('./routes/workout');
 const exercises = require('./routes/exercises');
+const workoutdone = require('./routes/workoutdone');
 const cors = require('cors');
 
 app.use(express.json());
@@ -10,6 +11,7 @@ app.use(cors())
 
 app.use('/workouts', workout);
 app.use('/exercises', exercises)
+app.use('/workoutsDone', workoutdone)
 workout.use('/:idWorkout/exercises', exercise);
 
 
