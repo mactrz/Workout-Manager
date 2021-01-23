@@ -45,6 +45,7 @@ const AddWorkout = ( {addWorkout} ) => {
                 <ErrorMessage name="description" className="error">
                     { msg => <div style={{ color: 'red' }}>{msg}</div> }
                 </ErrorMessage>
+                <h4>Exercises:</h4>
                 <FieldArray name='exercises'>
                         {({ insert, remove, push }) => (
                             <div style={{borderTop:'2px solid black', marginTop:'3px', paddingTop:'3px'}}>
@@ -94,22 +95,22 @@ const AddWorkout = ( {addWorkout} ) => {
                                             </ErrorMessage>
                                         </div>
                                         <div className='row'>
-                                            <Button className="secondary"
+                                            <Button className="btn btn-danger"
                                             onClick={() => remove(ind)}>
                                                 Remove
                                             </Button>
                                         </div>
                                     </div>
                                 ))}
-                                <Button className="secondary"
+                                <Button className="btn btn-secondary"
                                 onClick={() => push({title: '', description: '', bodypart: '', difficulty: 1})}>
                                     Add Exercise
                                 </Button>
                             </div>
                         )}
-                    </FieldArray>
-                <Field className="btn btn-primary" type='submit' value='Add'></Field>
-                <Button type='reset' onClick={resetForm}>Reset Form</Button>
+                    </FieldArray><br/>
+                <Field className="btn btn-success" type='submit' value='Add'></Field>
+                <Button style={{marginLeft:'21px'}} className='btn btn-secondary' type='reset' onClick={resetForm}>Reset Form</Button>
             </Form>)}
         </Formik>
     )

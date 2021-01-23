@@ -129,7 +129,7 @@ const Workouts = ({ workouts, removeWorkout, exercises, addWorkout, removeWorkou
                 </tbody>
             </Table>
             </Row>
-            <Row><Button
+            <Row><Button className="btn btn-secondary"
                 onClick={() => setOpen(!open)}
             >
                 Add new workout

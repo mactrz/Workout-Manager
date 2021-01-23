@@ -1,45 +1,49 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 import * as yup from 'yup';
 import { connect } from 'react-redux';
 import operations from '../state/ducks/workoutsdone/operations';
 
-
 const RegisterWorkout = ( { workouts, registerApi } ) => {
 
     const validationSchema = yup.object().shape({
-        difficulty: yup.number().required('Must give how difficult'),
-        rating: yup.number().required('Must give a rating'),
-        time: yup.number().required('Please specify in minutes how much time the workout took'),
+        difficulty: yup.string().required('Must give how difficult'),
+        rating: yup.string().required('Must give a rating').min(0),
+        time: yup.number().required('Please specify in minutes how much time the workout took').typeError("Input a number"),
         workout: yup.string().required('Must choose which workout')
     })
 
     return(
         <Formik initialValues={{difficulty: 0, rating: 0, time: 0, workout: ''}} onSubmit={(values, {resetForm}) => {
             const now = new Date();
-            values.date = now;
+            values.registerDate = now;
+            console.log(values);
             const valsString = JSON.stringify(values);
             registerApi(valsString);
             resetForm({values: ''});
         }} validationSchema={validationSchema}>
             {workouts && <div>
             <Container>
-            <Form>
+            <Row>
+            <Col>
+                <h3>Describe your workout, later you can analyze all of this data!</h3>
+            </Col>
+            <Col><Form style={{marginTop: '10px'}}>
                 <h6>Difficulty<br/>
-                0<Field name='difficulty' type='range' min='0' max='10'/>10</h6>
+                0 <Field name='difficulty' type='range' min='0' max='10'/> 10</h6>
             <ErrorMessage name='difficulty' className="error">
                 { msg => <div style={{ color: 'red' }}>{msg}</div> }
             </ErrorMessage>
 
-                <h6>Rating<br/>
-                0<Field name='rating' type='range' min='0' max='10'/>10</h6>
+                <h6>How do you feel today?<br/>
+                0 <Field name='rating' type='range' min='0' max='10'/> 10</h6>
             <ErrorMessage name='rating' className="error">
                 { msg => <div style={{ color: 'red' }}>{msg}</div> }
             </ErrorMessage>
 
                 <h6>Time<br/>
-                <Field name='time' type='number'/></h6>
+                <Field name='time' type='text'/></h6>
             <ErrorMessage name='time' className="error">
                 { msg => <div style={{ color: 'red' }}>{msg}</div> }
             </ErrorMessage>
@@ -54,8 +58,11 @@ const RegisterWorkout = ( { workouts, registerApi } ) => {
             <ErrorMessage name='workout' className="error">
                 { msg => <div style={{ color: 'red' }}>{msg}</div> }
             </ErrorMessage>
-            <Field className="btn btn-primary" type='submit' value='Register'></Field>
-            </Form></Container></div>}
+            <Field className="btn btn-secondary" type='submit' value='Register'></Field>
+            </Form>
+            </Col>
+            </Row>
+            </Container></div>}
         </Formik>
     )
 }

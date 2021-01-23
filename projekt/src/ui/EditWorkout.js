@@ -119,23 +119,23 @@ const EditWorkout = ( { editWorkoutApi, workouts, exercises, removeExercise, rem
                                             </ErrorMessage>
                                         </div>
                                         <div className='row'>
-                                            <Button className="secondary"
+                                            <Button className="btn btn-danger"
                                             onClick={() => remove(ind)}>
                                                 Remove
                                             </Button>
                                         </div>
                                     </div>
                                 ))}
-                                <Button className="secondary"
+                                <Button className="btn btn-secondary"
                                 onClick={() => push({title: '', description: '', bodypart: '', difficulty: ''})}>
                                     Add Exercise
                                 </Button>
                             </div>
                         )}
-                    </FieldArray>
+                    </FieldArray><br/>
                     </div>
-                <Field className="btn btn-primary" type='submit' value='Edit'></Field>
-                <Button type='reset' onClick={resetForm}>Reset Form</Button>
+                <Field className="btn btn-success" type='submit' value='Edit'></Field>
+                <Button style={{marginLeft:'21px'}} className="btn btn-secondary" type='reset' onClick={resetForm}>Reset Form</Button>
             </Form>
             </Col>
             <Col>
