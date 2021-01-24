@@ -107,7 +107,7 @@ const Workouts = ({ workouts, removeWorkout, exercises, addWorkout, removeWorkou
                         {sortDate === 0 && <i style={{marginLeft:'10px'}} className="fas fa-sort"></i>}
                         {sortDate === 1 && <i style={{marginLeft:'10px'}} className="fas fa-sort-down"></i>}
                         {sortDate === 2 && <i style={{marginLeft:'10px'}} className="fas fa-sort-up"></i>}</th>
-                        <th style={{width:"10%", textAlign:'center'}}>Remove</th>
+                        <th style={{width:"10%", textAlign:'center'}}>Del</th>
                         <th style={{width:"10%",textAlign:'center'}}>Edit</th>
                     </tr>
                 </thead>
