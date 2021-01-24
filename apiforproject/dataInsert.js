@@ -94,8 +94,9 @@ mongoose
     const port = process.env.PORT || 5000
     app.listen(port, () => {
       console.log(`API server listening at http://localhost:${port}`);
+      const now = new Date()
       workoutsData.forEach(async workout => {
-        Axios.post('http://localhost:5000/workouts', {title: workout.title, description: workout.description}).then(response => {
+        Axios.post('http://localhost:5000/workouts', {title: workout.title, description: workout.description, creationDate: now}).then(response => {
           var id = response.data._id
           console.log(id)
           workout.exercises.forEach(async exercise => {

@@ -127,7 +127,7 @@ const EditWorkout = ( { editWorkoutApi, workouts, exercises, removeExercise, rem
                                     </div>
                                 ))}
                                 <Button className="btn btn-secondary"
-                                onClick={() => push({title: '', description: '', bodypart: '', difficulty: ''})}>
+                                onClick={() => push({title: '', description: '', bodypart: '', difficulty: '', workout: workout._id})}>
                                     Add Exercise
                                 </Button>
                             </div>

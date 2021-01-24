@@ -17,6 +17,8 @@ const exercises = (state = [], action) => {
             const index = edited.findIndex(exercise => exercise._id === action.payload.id);
             edited[index] = {...edited[index], ...action.payload.data}
             return edited;
+        case 'EDIT_WORKOUT':
+            return [...state, ...action.payload.data.exercises];
         case WORKOUTPOST_SUCCESS:
             console.log('i am from exercise');
             return [...state, ...action.payload.exercises];

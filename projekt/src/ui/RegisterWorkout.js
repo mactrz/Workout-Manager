@@ -27,22 +27,22 @@ const RegisterWorkout = ( { workouts, registerApi } ) => {
             <Container>
             <Row>
             <Col>
-                <h3>Describe your workout, later you can analyze all of this data!</h3>
+                <h3>Chose a workout you've done today, describe your peformance and how you feel about it.</h3><h4>You can analyze your progress in the Data tab above!</h4>
             </Col>
             <Col><Form style={{marginTop: '10px'}}>
-                <h6>Difficulty<br/>
+                <h6>How difficult was the workout today?:<br/>
                 0 <Field name='difficulty' type='range' min='0' max='10'/> 10</h6>
             <ErrorMessage name='difficulty' className="error">
                 { msg => <div style={{ color: 'red' }}>{msg}</div> }
             </ErrorMessage>
 
-                <h6>How do you feel today?<br/>
+                <h6>How do you feel today?:<br/>
                 0 <Field name='rating' type='range' min='0' max='10'/> 10</h6>
             <ErrorMessage name='rating' className="error">
                 { msg => <div style={{ color: 'red' }}>{msg}</div> }
             </ErrorMessage>
 
-                <h6>Time<br/>
+                <h6>How much time it took?(in minutes):<br/>
                 <Field name='time' type='text'/></h6>
             <ErrorMessage name='time' className="error">
                 { msg => <div style={{ color: 'red' }}>{msg}</div> }

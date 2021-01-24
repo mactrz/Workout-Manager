@@ -15,7 +15,7 @@ const workouts = (state = [], action) => {
         case types.EDIT_WORKOUT:
             let newOne = [...state];
             const index = newOne.findIndex(x => x._id === action.payload.ind)
-            const ex = [...newOne[index].exercises]
+            const ex = [...newOne[index].exercises, ...action.payload.data.exercises]
             newOne[index] = {...newOne[index], ...action.payload.data}
             newOne[index].exercises = ex;
             return newOne;

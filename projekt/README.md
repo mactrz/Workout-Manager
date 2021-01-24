@@ -1,5 +1,5 @@
 INSTRUCTIONS:
-1. RUN THE dataInsert.js file in apiforproject folder in this repository(Do this only the first time)
+1. TURN ON MONGODB AND RUN THE dataInsert.js file in apiforproject folder in this repository(Do this only the first time)
 2. CLOSE dataInsert.js
 3. RUN index.js in apiforproject folder in this repository
 4. RUN THIS APP
