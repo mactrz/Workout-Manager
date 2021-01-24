@@ -3,7 +3,7 @@ import {WORKOUTDONE_FAILURE, WORKOUTDONE_REQUEST, WORKOUTDONE_SUCCESS,
  WORKOUTDONEPOST_REQUEST, WORKOUTDONEPOST_SUCCESS, WORKOUTDONEPOST_FAILURE} from "./types";
 
 export const getWorkoutsDone = () => (dispatch) => dispatch(createAction({
-  endpoint: 'http://localhost:5000/workoutsDone',
+  endpoint: 'http://10.45.3.2:5000/workoutsDone',
   method: 'GET',
   headers: {
     "Accept": "application/json",
@@ -17,7 +17,7 @@ export const getWorkoutsDone = () => (dispatch) => dispatch(createAction({
 
 const postWorkoutDone = (workout) => (dispatch) => {
   dispatch(createAction({
-  endpoint: 'http://localhost:5000/workoutsDone',
+  endpoint: 'http://10.45.3.2:5000/workoutsDone',
   method: 'POST',
   body: workout,
   headers: {

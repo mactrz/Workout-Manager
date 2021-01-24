@@ -5,7 +5,7 @@ WORKOUTDELETE_FAILURE, WORKOUTDELETE_REQUEST, WORKOUTDELETE_SUCCESS,
 WORKOUTEDIT_FAILURE, WORKOUTEDIT_REQUEST, WORKOUTEDIT_SUCCESS} from "./types";
 
 const getWorkouts = () => (dispatch) => dispatch(createAction({
-  endpoint: 'http://localhost:5000/workouts',
+  endpoint: 'http://10.45.3.2:5000/workouts',
   method: 'GET',
   headers: {
     "Accept": "application/json",
@@ -19,7 +19,7 @@ const getWorkouts = () => (dispatch) => dispatch(createAction({
 
 const postWorkout = (workout) => (dispatch) => {
   dispatch(createAction({
-  endpoint: 'http://localhost:5000/workouts/withExercises',
+  endpoint: 'http://10.45.3.2:5000/workouts/withExercises',
   method: 'POST',
   body: workout,
   headers: {
@@ -33,7 +33,7 @@ const postWorkout = (workout) => (dispatch) => {
 }))};
 
 const removeWorkout = (id) => (dispatch) => dispatch(createAction({
-  endpoint: `http://localhost:5000/workouts/${id}`,
+  endpoint: `http://10.45.3.2:5000/workouts/${id}`,
   method: 'DELETE',
   headers: {
     "Accept": "application/json",
@@ -46,7 +46,7 @@ const removeWorkout = (id) => (dispatch) => dispatch(createAction({
 }));
 
 const editWorkout = (id, change) => (dispatch) => dispatch(createAction({
-  endpoint: `http://localhost:5000/workouts/${id}`,
+  endpoint: `http://10.45.3.2:5000/workouts/${id}`,
   method: 'PUT',
   body: change,
   headers: {

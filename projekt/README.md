@@ -1,8 +1,6 @@
 INSTRUCTIONS:
-1. TURN ON MONGODB AND RUN THE dataInsert.js file in apiforproject folder in this repository(Do this only the first time)
-2. CLOSE dataInsert.js
-3. RUN index.js in apiforproject folder in this repository
-4. RUN THIS APP
+This app connects with api running on ug server, to access you must be logged id via VPN
+and the database must be up and running. If it's not please contact me.
 
 This is a website that allows you to create your own workouts,
 as well as use some of the ones already available.
