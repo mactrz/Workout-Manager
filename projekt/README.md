@@ -7,4 +7,6 @@ INSTRUCTIONS:
 This is a website that allows you to create your own workouts,
 as well as use some of the ones already available.
 
+Click on a workout in a list to display details about it.
+
 You can modify workouts and their exercises, register them and then view your progress as data on charts.
