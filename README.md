@@ -7,6 +7,7 @@ You can register your performance and then view your progress using charts.
 ## Docker containers
 
 Three docker containers are used to run this project:
+
     - Backend using MongoDB
     - Frontend using React with Redux
     - nginx
