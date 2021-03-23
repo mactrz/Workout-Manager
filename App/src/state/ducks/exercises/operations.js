@@ -4,7 +4,7 @@ import {EXERCISE_FAILURE, EXERCISE_REQUEST, EXERCISE_SUCCESS,
   EXERCISEEDIT_FAILURE, EXERCISEEDIT_REQUEST, EXERCISEEDIT_SUCCESS} from "./types";
 
  const getExercises = () => (dispatch) => dispatch(createAction({
-  endpoint: 'http://10.45.3.2:5000/exercises/all',
+  endpoint: 'http://localhost:5000/exercises/all',
   method: 'GET',
   headers: {
     "Accept": "application/json",
@@ -17,7 +17,7 @@ import {EXERCISE_FAILURE, EXERCISE_REQUEST, EXERCISE_SUCCESS,
 }));
 
 const removeExercise = (idworkout, idex) => (dispatch) => dispatch(createAction({
-  endpoint: `http://10.45.3.2:5000/workouts/${idworkout}/exercises/${idex}`,
+  endpoint: `http://localhost:5000/workouts/${idworkout}/exercises/${idex}`,
   method: 'DELETE',
   headers: {
     "Accept": "application/json",
@@ -31,7 +31,7 @@ const removeExercise = (idworkout, idex) => (dispatch) => dispatch(createAction(
 
 
 const editExercise = (idworkout, idExercise, data) => (dispatch) => dispatch(createAction({
-  endpoint: `http://10.45.3.2:5000/workouts/${idworkout}/exercises/${idExercise}`,
+  endpoint: `http://localhost:5000/workouts/${idworkout}/exercises/${idExercise}`,
   method: 'PUT',
   body: data,
   headers: {
