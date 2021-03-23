@@ -10,11 +10,11 @@ Three docker containers are used to run this project:
 
     - Backend using MongoDB
     - Frontend using React with Redux
-    - nginx
+    - Nginx
 
 ## How to run
 
-To run you need to have docker and Docker and Docker Compose installed
+To run you need to have Docker and Docker Compose installed
 
 In the main directory run this command
 
