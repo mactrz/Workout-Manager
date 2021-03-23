@@ -2,7 +2,9 @@
 
 Workout manager allows you to create and manage workouts.
 
-You can register your performance and then view your progress using charts.
+You can add, remove and edit workouts with their exercises.
+
+You can then register your performance in those workouts and view your progress using charts in the Data tab.
 
 ## Docker containers
 
